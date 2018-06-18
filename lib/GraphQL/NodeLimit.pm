@@ -1,11 +1,33 @@
 package GraphQL::NodeLimit;
-use 5.008001;
+use 5.014;
 use strict;
 use warnings;
 
+use Types::Standard qw/Int/;
+
 our $VERSION = "0.01";
 
+use Moo;
 
+has limit => (
+    is       => 'ro',
+    isa      => Int,
+    required => 1,
+);
+
+has captured => (
+    is       => 'rw',
+    isa      => Int,
+    required => 1,
+);
+
+no Moo;
+
+sub BUILDARGS {
+    my $self  = shift;
+    my $limit = shift;
+    return ( limit => $limit, captured => 0 );
+}
 
 1;
 __END__
